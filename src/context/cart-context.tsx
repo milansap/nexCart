@@ -4,7 +4,6 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 import { Product } from "@/app/apis/types/product";
 import { CartItem, CartContextType } from "@/lib/types";
 
-// Create default context value for SSR
 const defaultContextValue: CartContextType = {
   items: [],
   addItem: () => {},
@@ -23,7 +22,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Hydrate from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem(CART_STORAGE_KEY);
     if (stored) {
@@ -36,7 +34,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsHydrated(true);
   }, []);
 
-  // Persist to localStorage whenever items change
   useEffect(() => {
     if (isHydrated) {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));

@@ -18,7 +18,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
     const product = await getProductById(parseInt(id));
     console.log("Fetched product:", product);
 
-    // JSON-LD structured data for SEO
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Product",
@@ -44,7 +43,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     return (
       <div className="container mx-auto px-4 py-8">
-        {/* JSON-LD Script */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -59,7 +57,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg border border-gray-200 p-8">
-          {/* Product Image */}
+         
           <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden">
             <Image
               src={product.image}
@@ -70,7 +68,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             />
           </div>
 
-          {/* Product Details */}
+        
           <div className="space-y-6">
             <div>
               <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">

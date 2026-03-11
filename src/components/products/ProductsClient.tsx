@@ -24,7 +24,6 @@ export function ProductsClient({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Initialize filters from URL
   const [filters, setFilters] = useState<FilterState>({
     category: searchParams.get("category") || "all",
     minPrice: searchParams.get("minPrice") || "",
@@ -36,7 +35,7 @@ export function ProductsClient({
     parseInt(searchParams.get("page") || "1")
   );
 
-  // Update URL when filters change
+  
   useEffect(() => {
     const params = new URLSearchParams();
     
@@ -64,20 +63,20 @@ export function ProductsClient({
 
   const handleFilterChange = useCallback((newFilters: FilterState) => {
     setFilters(newFilters);
-    setCurrentPage(1); // Reset to first page on filter change
+    setCurrentPage(1);
   }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = [...initialProducts];
 
-    // Filter by category
+    
     if (filters.category && filters.category !== "all") {
       filtered = filtered.filter(
         (product) => product.category === filters.category,
       );
     }
 
-    // Filter by search
+  
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
       filtered = filtered.filter((product) =>
@@ -85,7 +84,7 @@ export function ProductsClient({
       );
     }
 
-    // Filter by price range
+  
     if (filters.minPrice) {
       const minPrice = parseFloat(filters.minPrice);
       filtered = filtered.filter((product) => product.price >= minPrice);
@@ -99,7 +98,6 @@ export function ProductsClient({
     return filtered;
   }, [initialProducts, filters]);
 
-  // Pagination calculations
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(
@@ -122,7 +120,7 @@ export function ProductsClient({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Sidebar Filters */}
+  
         <aside className="lg:col-span-1">
           <ProductFilters
             categories={categories}
@@ -131,7 +129,7 @@ export function ProductsClient({
           />
         </aside>
 
-        {/* Products Grid */}
+        
         <main className="lg:col-span-3">
           <div className="mb-4 flex justify-between items-center">
             <p className="text-sm text-gray-600">

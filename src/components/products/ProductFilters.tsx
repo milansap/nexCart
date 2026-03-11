@@ -64,7 +64,7 @@ export function ProductFilters({
         <h3 className="font-bold text-lg mb-4">Filters</h3>
       </div>
 
-      {/* Search */}
+
       <div>
         <Label htmlFor="search" className="text-sm font-medium mb-2 block">
           Search Products
@@ -79,7 +79,6 @@ export function ProductFilters({
         />
       </div>
 
-      {/* Category Filter */}
       <div>
         <Label htmlFor="category" className="text-sm font-medium mb-2 block">
           Category
@@ -99,7 +98,7 @@ export function ProductFilters({
         </Select>
       </div>
 
-      {/* Price Range */}
+     
       <div>
         <Label className="text-sm font-medium mb-2 block">Price Range</Label>
         <div className="flex gap-2 items-center">
