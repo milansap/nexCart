@@ -6,36 +6,23 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trash2, ShoppingBag, ArrowLeft, Lock } from "lucide-react";
-import { useEffect, useState } from "react";
-import { cookies } from "@/lib/cookies";
+import { useEffect } from "react";
+import { useAuthStore } from "@/lib/authStore";
 import { useRouter } from "next/navigation";
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart, cartTotal, cartCount } =
     useCart();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { isLoggedIn } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {
-    const token = cookies.get("token");
-    if (!token) {
+    if (!isLoggedIn) {
       router.push("/login?returnUrl=/cart");
-    } else {
-      setIsAuthenticated(true);
     }
-    setLoading(false);
-  }, [router]);
+  }, [isLoggedIn, router]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#97A87A]"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
+  if (!isLoggedIn) {
     return null;
   }
 
