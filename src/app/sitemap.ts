@@ -4,7 +4,7 @@ import { getAllProducts } from "./apis/productsApi";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nexcart.com";
 
-  // Fetch all products to generate dynamic URLs
+
   let products: { id: number; title: string }[] = [];
   try {
     products = await getAllProducts();
