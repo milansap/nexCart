@@ -1,23 +1,9 @@
 import { MetadataRoute } from "next";
-import { getAllProducts } from "./apis/productsApi";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nexcart.com";
 
-
-  let products: { id: number; title: string }[] = [];
-  try {
-    products = await getAllProducts();
-  } catch (error) {
-    console.error("Error fetching products for sitemap:", error);
-  }
-
-  const productUrls = products.map((product) => ({
-    url: `${baseUrl}/products/${product.id}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  const productUrls: MetadataRoute.Sitemap = [];
 
   return [
     {
