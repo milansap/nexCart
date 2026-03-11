@@ -20,7 +20,6 @@ export default function CartPage() {
   useEffect(() => {
     const token = cookies.get("token");
     if (!token) {
-      // Redirect to login if not authenticated, with return URL
       router.push("/login?returnUrl=/cart");
     } else {
       setIsAuthenticated(true);
@@ -93,7 +92,7 @@ export default function CartPage() {
                 key={item.product.id}
                 className="bg-white border border-gray-200 rounded-lg p-6 flex gap-4"
               >
-                {/* Product Image */}
+               
                 <Link
                   href={`/products/${item.product.id}`}
                   className="relative w-24 h-24 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden"
@@ -106,7 +105,7 @@ export default function CartPage() {
                   />
                 </Link>
 
-                {/* Product Info */}
+             
                 <div className="flex-1">
                   <Link href={`/products/${item.product.id}`}>
                     <h3 className="font-semibold text-[#2d3a1f] hover:text-[#97A87A] mb-1">
@@ -121,7 +120,6 @@ export default function CartPage() {
                   </p>
                 </div>
 
-                {/* Quantity & Remove */}
                 <div className="flex flex-col items-end justify-between">
                   <Button
                     variant="ghost"
@@ -176,7 +174,6 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Order Summary */}
         <div className="lg:col-span-1">
           <div className="bg-white border border-gray-200 rounded-lg p-6 sticky top-4">
             <h2 className="text-xl font-bold text-[#2d3a1f] mb-4">

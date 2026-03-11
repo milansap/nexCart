@@ -28,7 +28,7 @@ import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { loginSchema } from "@/lib/zodScheme";
 import { useRouter } from "next/navigation";
-import { cookies } from "@/lib/cookies";
+import { useAuthStore } from "@/lib/authStore";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -36,14 +36,13 @@ export default function NexCartLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const router = useRouter();
+  const { setToken, isLoggedIn } = useAuthStore();
 
-  // Check if already logged in
   useEffect(() => {
-    const token = cookies.get("token");
-    if (token) {
+    if (isLoggedIn) {
       router.push("/dashboard");
     }
-  }, [router]);
+  }, [isLoggedIn, router]);
 
   const {
     register,
@@ -66,10 +65,10 @@ export default function NexCartLogin() {
       const response = await login(values);
 
       if (response?.token) {
-        cookies.set("token", response.token);
-        
-        // Redirect to the previous page or dashboard
-        const returnUrl = new URLSearchParams(window.location.search).get("returnUrl");
+        setToken(response.token);
+        const returnUrl = new URLSearchParams(window.location.search).get(
+          "returnUrl",
+        );
         router.push(returnUrl || "/dashboard");
       } else {
         setSubmitError("Login failed");
@@ -171,7 +170,9 @@ export default function NexCartLogin() {
                   } px-3.5 py-3 text-[14.5px] text-[#2d3a1f] font-serif focus:border-[#97A87A] transition-colors`}
                 />
                 {errors.username && (
-                  <p className="text-xs text-red-600">{errors.username.message}</p>
+                  <p className="text-xs text-red-600">
+                    {errors.username.message}
+                  </p>
                 )}
               </div>
 

@@ -1,43 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { cookies } from "@/lib/cookies";
+import { useAuthStore } from "@/lib/authStore";
 import { ShoppingBag, Package, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/cart-context";
 
 export default function DashboardPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { cartCount, cartTotal } = useCart();
+  const { isLoggedIn, removeToken } = useAuthStore();
 
   useEffect(() => {
-    const token = cookies.get("token");
-    if (!token) {
+    if (!isLoggedIn) {
       router.push("/login");
-    } else {
-      setIsAuthenticated(true);
     }
-    setLoading(false);
-  }, [router]);
+  }, [isLoggedIn, router]);
 
   const handleLogout = () => {
-    cookies.remove("token");
+    removeToken();
     router.push("/login");
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#97A87A]"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
+  if (!isLoggedIn) {
     return null;
   }
 
@@ -107,7 +94,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         <h2 className="text-2xl font-bold text-[#2d3a1f] mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

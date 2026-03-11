@@ -1,14 +1,30 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, TrendingUp, Shield, Zap, ArrowRight, Tag } from "lucide-react";
+import {
+  ShoppingBag,
+  TrendingUp,
+  Shield,
+  Zap,
+  ArrowRight,
+  Tag,
+} from "lucide-react";
 import { getAllProducts, getAllCategories } from "@/app/apis/productsApi";
 import Image from "next/image";
 import { Metadata } from "next";
 
+
 export const metadata: Metadata = {
   title: "NexCart - Your Premium Online Marketplace",
-  description: "Shop smarter, live better with NexCart. Browse thousands of quality products across multiple categories including electronics, jewelry, men's clothing, and women's clothing.",
-  keywords: ["online shopping", "e-commerce", "electronics", "clothing", "jewelry", "marketplace"],
+  description:
+    "Shop smarter, live better with NexCart. Browse thousands of quality products across multiple categories including electronics, jewelry, men's clothing, and women's clothing.",
+  keywords: [
+    "online shopping",
+    "e-commerce",
+    "electronics",
+    "clothing",
+    "jewelry",
+    "marketplace",
+  ],
   openGraph: {
     title: "NexCart - Your Premium Online Marketplace",
     description: "Shop smarter, live better with NexCart quality products",
@@ -17,25 +33,32 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  // Fetch categories and featured products
   const [categories, allProducts] = await Promise.all([
     getAllCategories(),
     getAllProducts({ limit: 8 }),
   ]);
 
-  // Get 8 featured products
   const featuredProducts = allProducts.slice(0, 8);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f4f7f0] to-white">
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-6xl font-bold text-[#2d3a1f] mb-6">
+      <section
+        className="relative w-full min-h-screen flex items-center justify-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1920&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-[#97A87A]/50" />
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+          <h1 className="text-6xl font-bold text-white mb-6">
             Welcome to NexCart
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Your premium marketplace for quality products. Shop smarter, live better.
+          <p className="text-xl text-white/80 mb-8">
+            Your premium marketplace for quality products. Shop smarter, live
+            better.
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/products">
@@ -43,16 +66,18 @@ export default async function HomePage() {
                 Browse Products
               </Button>
             </Link>
-            <Link href="/login">
-              <Button variant="outline" className="px-8 py-6 text-lg">
+            {/* <Link href="/login">
+              <Button
+                variant="outline"
+                className="cursor-pointer px-8 py-6 text-lg text-white border-white hover:bg-white hover:text-[#2d3a1f]"
+              >
                 Login
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
 
-      {/* Categories Section */}
       <section className="container mx-auto px-4 py-16 bg-white">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#2d3a1f] mb-4">
@@ -82,7 +107,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#2d3a1f] mb-4">
@@ -117,10 +141,14 @@ export default async function HomePage() {
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
                     <span className="text-yellow-500">★</span>
-                    <span className="text-sm font-medium">{product.rating.rate}</span>
+                    <span className="text-sm font-medium">
+                      {product.rating.rate}
+                    </span>
                   </div>
                 </div>
-                <p className="text-lg font-bold text-[#97A87A]">${product.price}</p>
+                <p className="text-lg font-bold text-[#97A87A]">
+                  ${product.price}
+                </p>
               </div>
             </Link>
           ))}
@@ -129,13 +157,15 @@ export default async function HomePage() {
           <Link href="/products">
             <Button className="bg-[#97A87A] hover:bg-[#7a8d60] text-white font-semibold px-8 py-4 text-lg group">
               View All Products
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              <ArrowRight
+                className="ml-2 group-hover:translate-x-1 transition-transform"
+                size={20}
+              />
             </Button>
           </Link>
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-4xl font-bold text-center text-[#2d3a1f] mb-12">
           Why Choose NexCart?
@@ -160,9 +190,7 @@ export default async function HomePage() {
             <h3 className="text-xl font-bold text-[#2d3a1f] mb-2">
               Best Prices
             </h3>
-            <p className="text-gray-600">
-              Competitive pricing on all products
-            </p>
+            <p className="text-gray-600">Competitive pricing on all products</p>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
@@ -184,19 +212,14 @@ export default async function HomePage() {
             <h3 className="text-xl font-bold text-[#2d3a1f] mb-2">
               Fast Delivery
             </h3>
-            <p className="text-gray-600">
-              Quick and reliable shipping options
-            </p>
+            <p className="text-gray-600">Quick and reliable shipping options</p>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-4 py-16">
+      {/* <section className="container mx-auto px-4 py-16">
         <div className="bg-gradient-to-br from-[#97A87A] to-[#7a8d60] rounded-2xl p-12 text-center text-white">
-          <h2 className="text-4xl font-bold mb-4">
-            Start Shopping Today
-          </h2>
+          <h2 className="text-4xl font-bold mb-4">Start Shopping Today</h2>
           <p className="text-xl mb-8 text-white/90">
             Join thousands of satisfied customers
           </p>
@@ -205,8 +228,8 @@ export default async function HomePage() {
               Explore Products
             </Button>
           </Link>
-        </div>
-      </section>
+        </div>  
+      </section> */}
     </div>
   );
 }
