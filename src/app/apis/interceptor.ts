@@ -1,7 +1,7 @@
 import { cookies } from "@/lib/cookies";
 import { ApiResponse, ErrorResponse } from "./types/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://fakestoreapi.com";
 
 export const API_BASE_URL = `${BASE_URL}/`;
 export const MEDIA_BASE_URL = `${BASE_URL}/`;
