@@ -12,6 +12,7 @@ import { getAllProducts, getAllCategories } from "@/app/apis/productsApi";
 import Image from "next/image";
 import { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "NexCart - Your Premium Online Marketplace",
@@ -33,12 +34,19 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [categories, allProducts] = await Promise.all([
-    getAllCategories(),
-    getAllProducts({ limit: 8 }),
-  ]);
+  let categories: string[] = [];
+  let featuredProducts: Awaited<ReturnType<typeof getAllProducts>> = [];
 
-  const featuredProducts = allProducts.slice(0, 8);
+  try {
+    const [cats, allProducts] = await Promise.all([
+      getAllCategories(),
+      getAllProducts({ limit: 8 }),
+    ]);
+    categories = cats;
+    featuredProducts = allProducts.slice(0, 8);
+  } catch (error) {
+    console.error("Failed to fetch homepage data:", error);
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f4f7f0] to-white">
