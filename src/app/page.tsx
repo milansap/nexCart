@@ -70,7 +70,7 @@ export default async function HomePage() {
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/products">
-              <Button className="bg-gradient-to-br from-[#97A87A] to-[#7a8d60] hover:opacity-90 text-white font-semibold px-8 py-6 text-lg">
+              <Button className="bg-gradient-to-br  from-[#97A87A] to-[#7a8d60] cursor-pointer hover:opacity-90 text-white font-semibold px-8 py-6 text-lg">
                 Browse Products
               </Button>
             </Link>

@@ -32,7 +32,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
   return (
     <Button
       onClick={handleAddToCart}
-      className="w-full bg-gradient-to-br from-[#97A87A] to-[#7a8d60] hover:opacity-90 text-white font-semibold py-6 text-lg"
+      className="w-auto cursor-pointer bg-gradient-to-br from-[#97A87A] to-[#7a8d60] hover:opacity-90 text-white font-semibold py-6 text-lg"
     >
       {!isLoggedIn ? (
         <>

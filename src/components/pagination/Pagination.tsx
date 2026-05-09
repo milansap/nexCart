@@ -16,7 +16,6 @@ export function Pagination({
 }: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  // Show max 7 page numbers
   const getVisiblePages = () => {
     if (totalPages <= 7) return pages;
 
@@ -72,7 +71,7 @@ export function Pagination({
           >
             {page}
           </Button>
-        )
+        ),
       )}
 
       <Button
