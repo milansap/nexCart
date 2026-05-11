@@ -16,6 +16,8 @@ export default function CartPage() {
   const { isLoggedIn } = useAuthStore();
   const router = useRouter();
 
+  console.log("Cart Items:", items);
+
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/login?returnUrl=/cart");
@@ -181,9 +183,11 @@ export default function CartPage() {
               </div>
             </div>
 
-            <Button className="w-full bg-gradient-to-br from-[#97A87A] to-[#7a8d60] hover:opacity-90 text-white font-semibold py-6 text-lg">
-              Proceed to Checkout
-            </Button>
+            <Link href="/checkout">
+              <Button className="w-full cursor-pointer bg-gradient-to-br from-[#97A87A] to-[#7a8d60] hover:opacity-90 text-white font-semibold py-4 text-lg">
+                Proceed to Checkout
+              </Button>
+            </Link>
 
             <p className="text-xs text-gray-500 text-center mt-4">
               Taxes calculated at checkout
