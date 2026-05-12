@@ -93,10 +93,10 @@ export function verifyESewaSignature(
     delete responseData.signature;
 
     const signedFieldNames = responseData.signed_field_names || '';
-    const fields = signedFieldNames.split(',');
+    const fields: string[] = signedFieldNames.split(',');
     
     let message = '';
-    fields.forEach((field, index) => {
+    fields.forEach((field: string, index: number) => {
       message += `${field}=${responseData[field.trim()]}`;
       if (index < fields.length - 1) {
         message += ',';

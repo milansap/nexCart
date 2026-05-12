@@ -9,12 +9,7 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useCart } from '@/context/cart-context';
 
-interface CartItem {
-  id: number;
-  title: string;
-  price: number | string;
-  quantity: number;
-}
+
 
 export default function CheckoutPage() {
      const { items, cartTotal, cartCount } =
@@ -183,13 +178,13 @@ export default function CheckoutPage() {
             <h2 className="text-xl font-bold mb-6">Order Summary</h2>
 
             <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
-              {items?.map((item) => (
-                <div key={item.id} className="flex justify-between text-sm">
+              {items?.map((item, index) => (
+                <div key={index} className="flex justify-between text-sm">
                   <div>
-                    <p className="font-medium">{item.name}</p>
+                    <p className="font-medium">{(item as { productName?: string; title?: string }).productName ?? (item as { productName?: string; title?: string }).title ?? 'Item'}</p>
                     <p className="text-gray-500">Qty: {item.quantity}</p>
                   </div>
-                  <p className="font-medium">Rs. {(Number(item.price) * item.quantity).toFixed(2)}</p>
+                  <p className="font-medium">Rs. {(Number((item as { price?: number | string }).price ?? 0) * item.quantity).toFixed(2)}</p>
                 </div>
               ))}
             </div>

@@ -1,10 +1,11 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export default function PaymentFailure() {
+function PaymentFailureContent() {
   const searchParams = useSearchParams();
   const reason = searchParams.get('reason') || 'Your payment could not be processed';
 
@@ -44,5 +45,24 @@ export default function PaymentFailure() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PaymentFailure() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto px-4 py-16">
+          <div className="flex flex-col items-center justify-center min-h-[60vh]">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#97A87A]"></div>
+              <p className="mt-4 text-gray-600">Loading payment details...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <PaymentFailureContent />
+    </Suspense>
   );
 }
