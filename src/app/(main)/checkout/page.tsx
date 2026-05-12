@@ -12,13 +12,14 @@ import { useCart } from '@/context/cart-context';
 interface CartItem {
   id: number;
   title: string;
-  price: number;
+  price: number | string;
   quantity: number;
 }
 
 export default function CheckoutPage() {
      const { items, cartTotal, cartCount } =
         useCart();
+        console.log('Cart Items:', items);
 
   const router = useRouter();
  
@@ -185,10 +186,10 @@ export default function CheckoutPage() {
               {items?.map((item) => (
                 <div key={item.id} className="flex justify-between text-sm">
                   <div>
-                    <p className="font-medium">{item.title}</p>
+                    <p className="font-medium">{item.name}</p>
                     <p className="text-gray-500">Qty: {item.quantity}</p>
                   </div>
-                  <p className="font-medium">Rs. {(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="font-medium">Rs. {(Number(item.price) * item.quantity).toFixed(2)}</p>
                 </div>
               ))}
             </div>
